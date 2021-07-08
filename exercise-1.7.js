@@ -1,7 +1,11 @@
 // source1
 // Type your program in here!
 function is_close_enough(prev_guess, guess, x) {
-    return abs(prev_guess-guess)/guess < 0.0000001;
+    return relative_error(prev_guess, guess) < 0.0000001;
+}
+
+function relative_error(prev_guess, guess) {
+    return abs(prev_guess-guess)/guess;
 }
 
 function sqr(n) {
@@ -12,7 +16,7 @@ function abs(n) {
     return n<0 ? -n : n;
 }
 
-function next_guess(guess, x) {
+function improve_guess(guess, x) {
     return avg(x/guess, guess);
 }
 
@@ -23,7 +27,7 @@ function avg(a, b) {
 function sqrt_iter(guess, prev_guess, x) {
     return is_close_enough(guess, prev_guess, x)
     ? guess
-    : sqrt_iter(next_guess(guess,x), guess, x);
+    : sqrt_iter(improve_guess(guess,x), guess, x);
 }
 
 function sqrt(x) {
